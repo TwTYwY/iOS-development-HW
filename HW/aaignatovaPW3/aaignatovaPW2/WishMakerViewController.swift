@@ -181,7 +181,7 @@ final class WishMakerController: UIViewController {
     }
     // MARK: - If button for sliders was pressed
     @objc private func addWishButtonPressed() {
-        
+        present(WishStoringViewController(), animated: true)
     }
 }
 // MARK: - Slider's class
