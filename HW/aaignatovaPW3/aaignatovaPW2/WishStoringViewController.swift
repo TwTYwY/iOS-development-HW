@@ -42,6 +42,7 @@ final class WishStoringViewController: UIViewController {
     struct Constants {
         static let tableCornerRadius: CGFloat = 15
         static let tableOffset: UIEdgeInsets = .init(top: 100, left: 20, bottom: 20, right: 20)
+        static let sectionsCount: Int = 2
     }
     private let table: UITableView = UITableView(frame: .zero)
     private var wishArray: [String] = ["I wish to add cells to the table"]
@@ -60,30 +61,60 @@ final class WishStoringViewController: UIViewController {
         
         table.pin(to: view, Constants.tableOffset)
         table.register(WrittenWishCell.self, forCellReuseIdentifier: WrittenWishCell.reuseId)
+        table.register(AddWishCell.self, forCellReuseIdentifier: AddWishCell.reuseId)
     }
 }
 
 extension WishStoringViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return Constants.sectionsCount
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return wishArray.count
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return wishArray.count
+        default:
+            return 0
+        }
     }
     
     func tableView(
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: WrittenWishCell.reuseId,
-            for: indexPath
-        )
-        
-        guard let wishCell = cell as? WrittenWishCell else {
-            return cell
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: AddWishCell.reuseId,
+                for: indexPath
+            )
+            
+            guard let addWishCell = cell as? AddWishCell else {
+                return cell
+            }
+            
+            return addWishCell
+            
+        case 1:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: WrittenWishCell.reuseId,
+                for: indexPath
+            )
+            
+            guard let wishCell = cell as? WrittenWishCell else {
+                return cell
+            }
+            
+            wishCell.configure(with: wishArray[indexPath.row])
+            
+            return wishCell
+            
+        default:
+            return UITableViewCell()
         }
-        
-        wishCell.configure(with: wishArray[indexPath.row])
-        
-        return wishCell
     }
 }
 
@@ -139,5 +170,22 @@ final class WrittenWishCell: UITableViewCell {
             bottom: Constants.wishLabelOffset,
             right: Constants.wishLabelOffset
         ))
+    }
+}
+
+final class AddWishCell: UITableViewCell {
+    static let reuseId: String = "AddWishCell"
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configureUI()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+        
+    private func configureUI() {
+        backgroundColor = .green
     }
 }
