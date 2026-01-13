@@ -19,6 +19,10 @@ extension UIView {
         ])
     }
     
+    func pin(to view: UIView, _ constant: CGFloat) {
+        pin(to: view, UIEdgeInsets(top: constant, left: constant, bottom: constant, right: constant))
+    }
+    
     func pinVertical(to view: UIView, top: CGFloat = 0, bottom: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
             
@@ -42,6 +46,11 @@ extension UIView {
         heightAnchor.constraint(equalToConstant: height).isActive = true
     }
     
+    func setWidth(_ width: CGFloat) {
+        translatesAutoresizingMaskIntoConstraints = false
+        widthAnchor.constraint(equalToConstant: width).isActive = true
+    }
+    
     func pinBottom(to view: UIView, _ constant: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
         bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constant).isActive = true
@@ -58,9 +67,33 @@ extension UIView {
         trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constant).isActive = true
     }
     
+    func pinTop(to view: UIView, _ constant: CGFloat = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        topAnchor.constraint(equalTo: view.topAnchor, constant: constant).isActive = true
+    }
+    
     func pinTop(to anchor: NSLayoutYAxisAnchor, _ constant: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         topAnchor.constraint(equalTo: anchor, constant: constant).isActive = true
     }
         
+    func pinLeft(to view: UIView, _ constant: CGFloat = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constant).isActive = true
+    }
+        
+    func pinLeft(to anchor: NSLayoutXAxisAnchor, _ constant: CGFloat = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        leadingAnchor.constraint(equalTo: anchor, constant: constant).isActive = true
+    }
+        
+    func pinRight(to view: UIView, _ constant: CGFloat = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constant).isActive = true
+    }
+        
+    func pinRight(to anchor: NSLayoutXAxisAnchor, _ constant: CGFloat = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        trailingAnchor.constraint(equalTo: anchor, constant: -constant).isActive = true
+    }
 }
