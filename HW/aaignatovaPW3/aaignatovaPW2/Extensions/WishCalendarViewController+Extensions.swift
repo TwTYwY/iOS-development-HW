@@ -13,16 +13,21 @@ extension WishCalendarViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return 10
+        return events.count
     }
     
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-
-        return cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WishEventCell.reuseIdentifier, for: indexPath)
+        
+        guard let wishEventCell = cell as? WishEventCell else {
+            return cell
+        }
+        
+        wishEventCell.configure(with: events[indexPath.item])
+        return wishEventCell
     }
 }
 
@@ -34,7 +39,7 @@ extension WishCalendarViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         // Adjust cell size as needed
-        return CGSize(width: collectionView.bounds.width - 10, height: 100)
+        return CGSize(width: collectionView.bounds.width - 32, height: 130)
     }
     func collectionView(
         _ collectionView: UICollectionView,

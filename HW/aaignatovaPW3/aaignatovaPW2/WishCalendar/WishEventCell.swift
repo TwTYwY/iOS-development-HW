@@ -52,8 +52,8 @@ final class WishEventCell: UICollectionViewCell {
         descriptionLabel.text = event.description
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
+        dateFormatter.dateStyle = WishCalendarConstants.DateFormat.dateStyle
+        dateFormatter.timeStyle = WishCalendarConstants.DateFormat.timeStyle
         
         if let startDate = event.startDate {
             startDateLabel.text = "Starts: \(dateFormatter.string(from: startDate))"
@@ -69,11 +69,11 @@ final class WishEventCell: UICollectionViewCell {
         
         // Set appropriate icon based on event type or category
         if event.description.lowercased().contains("meeting") {
-            iconImageView.image = UIImage(systemName: "person.2.fill")
+            iconImageView.image = UIImage(systemName: WishCalendarConstants.EventCell.meetingIconName)
         } else if event.title.lowercased().contains("birthday") {
-            iconImageView.image = UIImage(systemName: "gift.fill")
+            iconImageView.image = UIImage(systemName: WishCalendarConstants.EventCell.birthdayIconName)
         } else {
-            iconImageView.image = UIImage(systemName: "calendar.circle.fill")
+            iconImageView.image = UIImage(systemName: WishCalendarConstants.EventCell.defaultIconName)
         }
     }
     
@@ -84,9 +84,9 @@ final class WishEventCell: UICollectionViewCell {
         wrapView.layer.cornerRadius = WishCalendarConstants.EventCell.cornerRadius
         wrapView.backgroundColor = WishCalendarConstants.EventCell.backgroundColor
         wrapView.layer.shadowColor = UIColor.black.cgColor
-        wrapView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        wrapView.layer.shadowRadius = 4
-        wrapView.layer.shadowOpacity = 0.1
+        wrapView.layer.shadowOffset = WishCalendarConstants.Common.shadowOffset
+        wrapView.layer.shadowRadius = WishCalendarConstants.Common.shadowRadius
+        wrapView.layer.shadowOpacity = WishCalendarConstants.Common.shadowOpacity
         wrapView.layer.masksToBounds = false
     }
     
@@ -127,6 +127,7 @@ final class WishEventCell: UICollectionViewCell {
         dateStackView.axis = .horizontal
         dateStackView.distribution = .fillEqually
         dateStackView.spacing = WishCalendarConstants.EventCell.dateSpacing
+        dateStackView.translatesAutoresizingMaskIntoConstraints = false
         dateStackView.pinTop(to: descriptionLabel.bottomAnchor, WishCalendarConstants.EventCell.dateTop)
         dateStackView.pinLeft(to: descriptionLabel.leadingAnchor)
         dateStackView.pinRight(to: wrapView, WishCalendarConstants.EventCell.dateTrailing)
