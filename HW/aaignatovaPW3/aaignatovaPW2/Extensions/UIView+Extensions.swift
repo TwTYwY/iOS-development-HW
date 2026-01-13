@@ -47,9 +47,20 @@ extension UIView {
         bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constant).isActive = true
     }
     
+    func pinBottom(to anchor: NSLayoutYAxisAnchor, _ constant: CGFloat = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        bottomAnchor.constraint(equalTo: anchor, constant: -constant).isActive = true
+    }
+    
     func pinHorizontal(to view: UIView, _ constant: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
         leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constant).isActive = true
         trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constant).isActive = true
     }
+    
+    func pinTop(to anchor: NSLayoutYAxisAnchor, _ constant: CGFloat = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        topAnchor.constraint(equalTo: anchor, constant: constant).isActive = true
+    }
+        
 }
