@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: - ViewController
-final class WishMakerController: UIViewController {
+final class WishMakerViewController: UIViewController {
     private let titleLabel = UILabel()
     private let discription = UILabel()
     private let stack = UIStackView()
@@ -185,6 +185,7 @@ final class WishMakerController: UIViewController {
     }
     
     @objc private func scheduleWishButtonPressed() {
-            print("Schedule wish granting button pressed")
+        let vc = WishCalendarViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
